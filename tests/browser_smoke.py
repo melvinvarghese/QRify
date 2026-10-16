@@ -47,7 +47,19 @@ def main():
             response = page.goto(base_url, wait_until='networkidle')
             assert response is not None and response.status == 200, f'{base_url} did not return HTTP 200'
             assert page.title().startswith('QRify')
-            expect(page.get_by_role('heading', name='Your QR. Your Privacy.')).to_be_visible()
+
+            black_white = page.get_by_role('button', name='Black & white')
+            pine = page.get_by_role('button', name='Pine')
+            expect(black_white).to_have_attribute('aria-pressed', 'true')
+            expect(pine).to_have_attribute('aria-pressed', 'false')
+            pine.click()
+            expect(pine).to_have_attribute('aria-pressed', 'true')
+            expect(pine).to_have_css('border-color', 'rgb(14, 117, 103)')
+            page.get_by_label('Foreground color').fill('#1767b1')
+            expect(pine).to_have_attribute('aria-pressed', 'false')
+            expect(black_white).to_have_attribute('aria-pressed', 'false')
+            expect(page.get_by_role('heading', name='QR codes, made simple.')).to_be_visible()
+            assert page.locator('.builder-pane .customization').count() == 1, 'customization controls must stay in the configuration pane'
 
             status = page.get_by_role('status')
             png_button = page.get_by_role('button', name='Download PNG')
@@ -126,9 +138,11 @@ def main():
             page.get_by_role('button', name='Clear all').click()
             expect(png_button).to_be_disabled()
             expect(svg_button).to_be_disabled()
+            expect(black_white).to_have_attribute('aria-pressed', 'true')
 
-            page.set_viewport_size({"width": 375, "height": 812})
-            assert page.evaluate('document.documentElement.scrollWidth <= window.innerWidth'), 'mobile layout overflows horizontally'
+            for width in (320, 375, 768):
+                page.set_viewport_size({"width": width, "height": 812})
+                assert page.evaluate('document.documentElement.scrollWidth <= window.innerWidth'), f'{width}px layout overflows horizontally'
             assert not errors, f'browser errors: {errors}'
             assert requests and all(urlparse(url).netloc == f'127.0.0.1:{server.server_port}' for url in requests), 'unexpected external request'
 

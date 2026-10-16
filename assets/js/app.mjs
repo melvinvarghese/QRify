@@ -29,6 +29,7 @@ const downloadSvgButton = document.querySelector('#downloadSvg');
 const copyPayloadButton = document.querySelector('#copyPayload');
 const clearButton = document.querySelector('#clearButton');
 const exampleButton = document.querySelector('#exampleButton');
+const presetButtons = [...document.querySelectorAll('.preset-button')];
 
 const quietZone = 4;
 const generationDelay = 140;
@@ -87,6 +88,16 @@ function updateContrastWarning() {
   const ratio = contrastRatio(foregroundInput.value, backgroundInput.value);
   contrastWarning.hidden = ratio >= 4.5;
   contrastWarning.setAttribute('aria-label', `Contrast ratio ${ratio.toFixed(2)} to 1.`);
+}
+
+function updatePresetSelection() {
+  const foreground = foregroundInput.value.toLowerCase();
+  const background = backgroundInput.value.toLowerCase();
+  for (const preset of presetButtons) {
+    const selected = preset.dataset.foreground.toLowerCase() === foreground
+      && preset.dataset.background.toLowerCase() === background;
+    preset.setAttribute('aria-pressed', String(selected));
+  }
 }
 
 function updateSizeReadout() {
@@ -241,6 +252,7 @@ function clearAll() {
   syncModeFields();
   updateSizeReadout();
   updateContrastWarning();
+  updatePresetSelection();
   clearPreview('Enter content to create a QR code.');
 }
 
@@ -260,10 +272,12 @@ securitySelect.addEventListener('change', () => {
 for (const control of [foregroundInput, backgroundInput]) {
   control.addEventListener('input', () => {
     updateContrastWarning();
+    updatePresetSelection();
     scheduleGeneration();
   });
   control.addEventListener('change', () => {
     updateContrastWarning();
+    updatePresetSelection();
     scheduleGeneration();
   });
 }
@@ -273,11 +287,12 @@ sizeSelect.addEventListener('change', () => {
   scheduleGeneration();
 });
 
-for (const preset of document.querySelectorAll('.preset-button')) {
+for (const preset of presetButtons) {
   preset.addEventListener('click', () => {
     foregroundInput.value = preset.dataset.foreground;
     backgroundInput.value = preset.dataset.background;
     updateContrastWarning();
+    updatePresetSelection();
     scheduleGeneration();
   });
 }
@@ -298,3 +313,4 @@ copyPayloadButton.addEventListener('click', copyPayload);
 syncModeFields();
 updateSizeReadout();
 updateContrastWarning();
+updatePresetSelection();

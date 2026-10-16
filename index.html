@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#f3f7f4">
+    <meta name="theme-color" content="#f4f7f3">
     <meta name="description" content="Create free QR codes for links, text, Wi-Fi, email, phone, and contacts. Everything is generated privately in your browser.">
     <title>QRify — Your QR. Your Privacy.</title>
     <link rel="icon" href="./assets/qrify-mark.svg" type="image/svg+xml">
@@ -35,9 +35,9 @@
     <main>
       <section class="hero container" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <p class="hero-kicker">A QR tool that stays with you</p>
-          <h1 id="hero-title">Your QR.<br><span>Your Privacy.</span></h1>
-          <p class="hero-description">Make a code for a link, a note, your Wi-Fi, or a contact. Your information stays in this browser from start to download.</p>
+          <p class="hero-kicker">Private by design</p>
+          <h1 id="hero-title">QR codes, made simple.</h1>
+          <p class="hero-description">Create, customize, and download QR codes in seconds. Your content is processed in this browser.</p>
         </div>
         <aside class="hero-proof" aria-label="Privacy details">
           <div class="proof-symbol" aria-hidden="true">
@@ -158,6 +158,31 @@
                 </div>
               </fieldset>
             </form>
+
+            <div class="customization">
+              <div class="customization-heading">
+                <h3>Customize</h3>
+                <label class="size-control" for="qrSize">
+                  <span>QR code size</span>
+                  <select id="qrSize" name="size">
+                    <option value="192">192 px</option>
+                    <option value="256" selected>256 px</option>
+                    <option value="384">384 px</option>
+                    <option value="512">512 px</option>
+                  </select>
+                </label>
+              </div>
+              <div class="color-controls">
+                <label class="color-control" for="foregroundColor"><span>Foreground color</span><input id="foregroundColor" type="color" value="#000000"></label>
+                <label class="color-control" for="backgroundColor"><span>Background color</span><input id="backgroundColor" type="color" value="#ffffff"></label>
+              </div>
+              <div class="preset-row" role="group" aria-label="Color presets">
+                <span>Presets</span>
+                <button type="button" class="preset-button" aria-pressed="false" data-foreground="#000000" data-background="#ffffff">Black &amp; white</button>
+                <button type="button" class="preset-button" aria-pressed="false" data-foreground="#17483e" data-background="#eef7f2">Pine</button>
+                <button type="button" class="preset-button" aria-pressed="false" data-foreground="#253f67" data-background="#f1f5fc">Slate</button>
+              </div>
+            </div>
           </div>
 
           <aside class="preview-pane" aria-labelledby="preview-title">
@@ -188,31 +213,6 @@
               <button class="button button-primary" id="downloadPng" type="button" disabled>Download PNG</button>
               <button class="button button-secondary" id="downloadSvg" type="button" disabled>Download SVG</button>
               <button class="button button-quiet" id="copyPayload" type="button" disabled>Copy payload</button>
-            </div>
-
-            <div class="customization">
-              <div class="customization-heading">
-                <h3>Make it yours</h3>
-                <label class="size-control" for="qrSize">
-                  <span>QR code size</span>
-                  <select id="qrSize" name="size">
-                    <option value="192">192 px</option>
-                    <option value="256" selected>256 px</option>
-                    <option value="384">384 px</option>
-                    <option value="512">512 px</option>
-                  </select>
-                </label>
-              </div>
-              <div class="color-controls">
-                <label class="color-control" for="foregroundColor"><span>Foreground color</span><input id="foregroundColor" type="color" value="#000000"></label>
-                <label class="color-control" for="backgroundColor"><span>Background color</span><input id="backgroundColor" type="color" value="#ffffff"></label>
-              </div>
-              <div class="preset-row" role="group" aria-label="Color presets">
-                <span>Presets</span>
-                <button type="button" class="preset-button" data-foreground="#000000" data-background="#ffffff">Black &amp; white</button>
-                <button type="button" class="preset-button" data-foreground="#17483e" data-background="#eef7f2">Pine</button>
-                <button type="button" class="preset-button" data-foreground="#253f67" data-background="#f1f5fc">Slate</button>
-              </div>
             </div>
 
             <p class="sharing-note"><strong>Before you share:</strong> anyone who scans a QR code may be able to read what it contains. Check the encoded details first. QRify does not check whether a URL is safe.</p>
