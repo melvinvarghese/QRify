@@ -17,6 +17,11 @@ test('URL mode adds HTTPS and preserves path and query', () => {
   assert.equal(api('buildPayload')('url', { url: 'example.com/path?q=1' }), 'https://example.com/path?q=1');
 });
 
+test('URL mode adds HTTPS to bare hostname-and-port inputs', () => {
+  assert.equal(api('buildPayload')('url', { url: 'example.com:8080/path?q=1' }), 'https://example.com:8080/path?q=1');
+  assert.equal(api('buildPayload')('url', { url: 'localhost:3000/' }), 'https://localhost:3000/');
+});
+
 test('URL mode rejects non-HTTP schemes', () => {
   assert.throws(() => api('buildPayload')('url', { url: 'javascript:alert(1)' }), /HTTP|HTTPS|URL/i);
 });
@@ -41,6 +46,13 @@ test('Wi-Fi mode escapes reserved characters in the SSID and password', () => {
   assert.equal(
     api('buildPayload')('wifi', { ssid: 'Cafe;Main', password: 'p:ss,word\\tail', security: 'WPA' }),
     'WIFI:T:WPA;S:Cafe\\;Main;P:p\\:ss\\,word\\\\tail;;',
+  );
+});
+
+test('Wi-Fi mode escapes double quotes in both SSID and password', () => {
+  assert.equal(
+    api('buildPayload')('wifi', { ssid: 'Cafe"net', password: 'p"ass', security: 'WPA' }),
+    'WIFI:T:WPA;S:Cafe\\"net;P:p\\"ass;;',
   );
 });
 

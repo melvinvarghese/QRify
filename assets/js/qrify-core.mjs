@@ -25,7 +25,9 @@ function phoneNumber(value) {
 }
 
 function escapeWifi(value) {
-  return value.replace(/[\\;,:]/gu, '\\$&');
+  return value
+    .replace(/[\\;,:]/gu, '\\$&')
+    .replaceAll('\"', '\\$&');
 }
 
 function escapeVCard(value) {
@@ -43,7 +45,8 @@ export function buildPayload(mode, fields = {}) {
   switch (mode) {
     case 'url': {
       const value = requiredText(fields.url, 'URL');
-      const candidate = /^[a-z][\da-z+.-]*:/iu.test(value) ? value : `https://${value}`;
+      const bareHostPort = /^(?:localhost|(?:[a-z\d-]+\.)+[a-z\d.-]+):\d+(?:[/?#]|$)/iu.test(value);
+      const candidate = /^[a-z][\da-z+.-]*:/iu.test(value) && !bareHostPort ? value : `https://${value}`;
       let url;
       try {
         url = new URL(candidate);
