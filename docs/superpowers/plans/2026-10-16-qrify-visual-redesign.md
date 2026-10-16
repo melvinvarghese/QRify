@@ -65,14 +65,16 @@
 - [x] **Step 3: Add the page title, meta description, canonical URL, and matching Open Graph tags** in `index.html`; update the README lead to naturally identify QRify as a free online QR code generator and describe its formats, customization, downloads, and local generation.
 - [x] **Step 4: Verify the full browser and core suites** with the command set from Task 1.
 - [x] **Step 5: Set the requested GitHub About description** with the enabled GitHub connector and verify the exact result using `gh repo view melvinvarghese/QRify --json description`.
-- [ ] **Step 6: Commit the page/README/SEO tests** as `docs: optimize QRify search descriptions`; hold remote publishing for Task 3's final review.
+- [x] **Step 6: Commit the page/README/SEO tests** as `docs: optimize QRify search descriptions`; hold remote publishing for Task 3's final review.
 
 ### Task 3: Verify and publish the complete redesign
 
 **Files:**
 - No planned source changes; address any verified review regression in a focused fix commit.
 
-- [ ] **Step 1: Re-run** `node --test tests/qrify-core.test.mjs`, `node --check assets/js/app.mjs`, `node --check assets/js/qrify-core.mjs`, `python3 tests/browser_smoke.py`, and `git diff --check`; record the actual outcomes.
-- [ ] **Step 2: Request a fresh whole-branch code review** against the design spec and this plan; resolve any Critical/Important finding with a RED→GREEN regression test, and log deferred minors.
+- [x] **Step 1: Re-run** `node --test tests/qrify-core.test.mjs`, `node --check assets/js/app.mjs`, `node --check assets/js/qrify-core.mjs`, `python3 tests/browser_smoke.py`, and `git diff --check`; all passed.
+- [x] **Step 2: Request a fresh whole-branch code review** against the design spec and this plan; no Critical/Important findings; log the one Minor contrast-test coverage gap as deferred.
 - [ ] **Step 3: Push the full fast-forward commit series to `origin/main`**, then load the public HTTPS GitHub Pages URL and verify title, metadata, relative assets, responsive generator, and absence of console/runtime errors without changing Pages settings.
 - [ ] **Step 4: Capture one final desktop screenshot of the deployed page** and record any checks that cannot be performed.
+
+**Final review status:** Fresh whole-branch review found no Critical or Important issues. One Minor contrast-test coverage gap is deferred and recorded in the decision ledger; see Task 3, Step 2.
