@@ -1,0 +1,28 @@
+# Operating systems
+.DS_Store
+Thumbs.db
+
+# Editors and temporary files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Optional local JavaScript tooling
+node_modules/
+npm-debug.log*
+
+# Test output
+coverage/
+playwright-report/
+test-results/
+
+# Local secrets and environment files
+.env
+.env.*
+!.env.example
