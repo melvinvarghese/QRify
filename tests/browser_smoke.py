@@ -5,6 +5,7 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from threading import Thread
 from urllib.parse import urlparse
+import re
 import shutil
 import struct
 
@@ -19,6 +20,16 @@ class QuietHandler(SimpleHTTPRequestHandler):
 
     def log_message(self, _format, *_args):
         pass
+
+
+def contrast_ratio(first, second):
+    def luminance(color):
+        channels = [int(value) / 255 for value in re.findall(r'\d+', color)[:3]]
+        linear = [channel / 12.92 if channel <= 0.04045 else ((channel + 0.055) / 1.055) ** 2.4 for channel in channels]
+        return sum(weight * value for weight, value in zip((0.2126, 0.7152, 0.0722), linear))
+
+    brighter, darker = sorted((luminance(first), luminance(second)), reverse=True)
+    return (brighter + 0.05) / (darker + 0.05)
 
 
 def main():
@@ -139,12 +150,26 @@ def main():
             expect(png_button).to_be_disabled()
             expect(svg_button).to_be_disabled()
             expect(black_white).to_have_attribute('aria-pressed', 'true')
+            readout_colors = page.locator('#sizeReadout').evaluate("element => [getComputedStyle(element).color, getComputedStyle(element.closest('.preview-pane')).backgroundColor]")
+            assert contrast_ratio(*readout_colors) >= 4.5, f'size readout contrast is below WCAG AA: {readout_colors}'
 
             for width in (320, 375, 768):
                 page.set_viewport_size({"width": width, "height": 812})
                 assert page.evaluate('document.documentElement.scrollWidth <= window.innerWidth'), f'{width}px layout overflows horizontally'
             assert not errors, f'browser errors: {errors}'
             assert requests and all(urlparse(url).netloc == f'127.0.0.1:{server.server_port}' for url in requests), 'unexpected external request'
+
+            dark_context = browser.new_context(viewport={"width": 1365, "height": 1000}, color_scheme='dark')
+            dark_page = dark_context.new_page()
+            dark_page.goto(base_url, wait_until='networkidle')
+            for _ in range(10):
+                if dark_page.evaluate("document.activeElement.id") == 'clearButton':
+                    break
+                dark_page.keyboard.press('Tab')
+            focus_colors = dark_page.locator('#clearButton').evaluate("element => [getComputedStyle(element).outlineColor, getComputedStyle(element.closest('.tool-shell')).backgroundColor, element.matches(':focus-visible')]")
+            assert focus_colors[2], 'Clear all button should show a keyboard-visible focus ring'
+            assert contrast_ratio(focus_colors[0], focus_colors[1]) >= 3, f'dark-mode focus contrast is below 3:1: {focus_colors}'
+            dark_context.close()
 
             print('Browser smoke passed: root subpath, all six modes, UTF-8, validation, contrast warning, PNG/SVG, copy/reset, local requests, mobile layout, and console.')
             context.close()

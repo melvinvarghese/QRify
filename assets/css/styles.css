@@ -7,7 +7,7 @@
   --surface-soft: #f7faf7;
   --ink: #182721;
   --muted: #58675f;
-  --quiet: #77837d;
+  --quiet: #66736d;
   --line: #dbe3dc;
   --line-strong: #c8d4cc;
   --accent: #0e7567;
@@ -99,7 +99,7 @@ input[type="color"] {
 }
 
 :focus-visible {
-  outline: 3px solid #0e7567;
+  outline: 3px solid var(--accent);
   outline-offset: 3px;
 }
 
