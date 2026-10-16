@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f3f7f4">
+    <meta name="description" content="Create free QR codes for links, text, Wi-Fi, email, phone, and contacts. Everything is generated privately in your browser.">
+    <title>QRify — Your QR. Your Privacy.</title>
+    <link rel="icon" href="./assets/qrify-mark.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#generator">Skip to the QR generator</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="./" aria-label="QRify home">
+          <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+            <rect width="32" height="32" rx="9" fill="currentColor"></rect>
+            <path d="M6 6h9v9H6zm2.5 2.5v4h4v-4zM17 6h9v9h-9zm2.5 2.5v4h4v-4zM6 17h9v9H6zm2.5 2.5v4h4v-4zM18 18h3v3h-3zm5 0h3v6h-3zm-5 5h6v3h-6z" fill="#fff" fill-rule="evenodd"></path>
+          </svg>
+          <span>QRify</span>
+        </a>
+
+        <div class="header-actions">
+          <span class="device-note">
+            <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M10 2.5 16 5v4.3c0 3.7-2.5 6.7-6 8.2-3.5-1.5-6-4.5-6-8.2V5l6-2.5Zm0 2.1L6 6.3v3c0 2.7 1.7 5 4 6.2 2.3-1.2 4-3.5 4-6.2v-3l-4-1.7Z" fill="currentColor"></path></svg>
+            Made on this device
+          </span>
+          <a class="header-link" href="https://github.com/melvinvarghese/QRify" target="_blank" rel="noopener noreferrer">View source</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero container" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="hero-kicker">A QR tool that stays with you</p>
+          <h1 id="hero-title">Your QR.<br><span>Your Privacy.</span></h1>
+          <p class="hero-description">Make a code for a link, a note, your Wi-Fi, or a contact. Your information stays in this browser from start to download.</p>
+        </div>
+        <aside class="hero-proof" aria-label="Privacy details">
+          <div class="proof-symbol" aria-hidden="true">
+            <svg viewBox="0 0 40 40" focusable="false"><path d="M20 4 33 9v9.4c0 8-5.4 14.5-13 17.6C12.4 32.9 7 26.4 7 18.4V9l13-5Zm0 4L11 11v7.4c0 5.7 3.5 10.5 9 13 5.5-2.5 9-7.3 9-13V11l-9-3Zm-1.7 7h3.4v9h-3.4v-9Zm0 11h3.4v3h-3.4v-3Z" fill="currentColor"></path></svg>
+          </div>
+          <div>
+            <h2>No upload. No account.</h2>
+            <p>QR codes are generated locally, using a library included with the site.</p>
+          </div>
+        </aside>
+      </section>
+
+      <section class="container tool-section" id="generator" aria-labelledby="generator-title">
+        <div class="tool-shell">
+          <div class="builder-pane">
+            <div class="pane-heading">
+              <div>
+                <h2 id="generator-title">Build your code</h2>
+                <p>Choose what to share, then make it yours.</p>
+              </div>
+              <button class="text-button" id="clearButton" type="button">Clear all</button>
+            </div>
+
+            <form id="qrForm" novalidate>
+              <div class="form-field type-field">
+                <label for="typeSelect">QR code type</label>
+                <select id="typeSelect" name="type">
+                  <option value="url">Website URL</option>
+                  <option value="text">Plain text</option>
+                  <option value="email">Email address</option>
+                  <option value="phone">Phone number</option>
+                  <option value="wifi">Wi-Fi network</option>
+                  <option value="contact">Contact card</option>
+                </select>
+              </div>
+
+              <fieldset class="input-group" data-fields="url">
+                <legend>Website</legend>
+                <div class="form-field">
+                  <label for="urlInput">Website URL</label>
+                  <input id="urlInput" name="url" type="text" inputmode="url" autocomplete="url" placeholder="example.com" spellcheck="false">
+                  <div class="field-footnote"><span>We’ll add HTTPS when you leave off the scheme.</span><button class="inline-link" id="exampleButton" type="button">Try an example</button></div>
+                </div>
+              </fieldset>
+
+              <fieldset class="input-group" data-fields="text" hidden>
+                <legend>Text</legend>
+                <div class="form-field">
+                  <label for="textInput">Text to encode</label>
+                  <textarea id="textInput" name="text" rows="4" placeholder="Write a note, address, or anything else."></textarea>
+                </div>
+              </fieldset>
+
+              <fieldset class="input-group" data-fields="email" hidden>
+                <legend>Email</legend>
+                <div class="form-field">
+                  <label for="emailInput">Email address</label>
+                  <input id="emailInput" name="email" type="text" inputmode="email" autocomplete="email" placeholder="you@example.com" spellcheck="false">
+                  <p class="field-hint">You can enter an address or a complete mailto link.</p>
+                </div>
+              </fieldset>
+
+              <fieldset class="input-group" data-fields="phone" hidden>
+                <legend>Phone</legend>
+                <div class="form-field">
+                  <label for="phoneInput">Phone number</label>
+                  <input id="phoneInput" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+1 555 010 0200">
+                  <p class="field-hint">You can enter a number or a complete tel link.</p>
+                </div>
+              </fieldset>
+
+              <fieldset class="input-group" data-fields="wifi" hidden>
+                <legend>Wi-Fi network</legend>
+                <div class="form-field">
+                  <label for="ssidInput">Wi-Fi name (SSID)</label>
+                  <input id="ssidInput" name="ssid" type="text" autocomplete="off" placeholder="Network name" spellcheck="false">
+                </div>
+                <div class="form-field">
+                  <label for="securitySelect">Wi-Fi security</label>
+                  <select id="securitySelect" name="security">
+                    <option value="WPA">WPA / WPA2</option>
+                    <option value="WEP">WEP</option>
+                    <option value="nopass">Open network</option>
+                  </select>
+                </div>
+                <div class="form-field" id="passwordField">
+                  <label for="passwordInput">Wi-Fi password</label>
+                  <input id="passwordInput" name="password" type="password" autocomplete="new-password" placeholder="Network password">
+                  <p class="field-hint">The password is encoded in the QR code. Anyone who scans it can read it.</p>
+                </div>
+              </fieldset>
+
+              <fieldset class="input-group contact-fields" data-fields="contact" hidden>
+                <legend>Contact card</legend>
+                <div class="form-row">
+                  <div class="form-field">
+                    <label for="firstNameInput">First name</label>
+                    <input id="firstNameInput" name="firstName" type="text" autocomplete="given-name" placeholder="Ada">
+                  </div>
+                  <div class="form-field">
+                    <label for="lastNameInput">Last name</label>
+                    <input id="lastNameInput" name="lastName" type="text" autocomplete="family-name" placeholder="Lovelace">
+                  </div>
+                </div>
+                <div class="form-field">
+                  <label for="organizationInput">Organization <span class="optional">Optional</span></label>
+                  <input id="organizationInput" name="organization" type="text" autocomplete="organization" placeholder="Company or group">
+                </div>
+                <div class="form-row">
+                  <div class="form-field">
+                    <label for="contactPhoneInput">Contact phone</label>
+                    <input id="contactPhoneInput" name="contactPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+1 555 010 0200">
+                  </div>
+                  <div class="form-field">
+                    <label for="contactEmailInput">Contact email</label>
+                    <input id="contactEmailInput" name="contactEmail" type="text" inputmode="email" autocomplete="email" placeholder="ada@example.com" spellcheck="false">
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+
+          <aside class="preview-pane" aria-labelledby="preview-title">
+            <div class="preview-heading">
+              <h2 id="preview-title">Live preview</h2>
+              <span class="preview-indicator"><span aria-hidden="true"></span> Updates as you type</span>
+            </div>
+
+            <div class="preview-board">
+              <canvas id="qrCanvas" aria-label="Generated QR code preview" hidden></canvas>
+              <div class="empty-preview" id="emptyPreview">
+                <svg class="empty-mark" viewBox="0 0 88 88" aria-hidden="true" focusable="false">
+                  <path d="M8 34V8h26M54 8h26v26M80 54v26H54M34 80H8V54" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="square"></path>
+                  <path d="M28 28h32v32H28zM36 36v16h16V36z" fill="currentColor" fill-rule="evenodd"></path>
+                </svg>
+                <p>Your code will appear here</p>
+                <span>Start with a link or choose another type.</span>
+              </div>
+            </div>
+
+            <div class="preview-meta">
+              <p id="status" role="status" aria-live="polite">Enter content to create a QR code.</p>
+              <span id="sizeReadout">256 × 256 px</span>
+            </div>
+            <p class="contrast-warning" id="contrastWarning" role="note" aria-live="polite" hidden>These colors may be hard to scan. Try a darker foreground or lighter background.</p>
+
+            <div class="download-actions">
+              <button class="button button-primary" id="downloadPng" type="button" disabled>Download PNG</button>
+              <button class="button button-secondary" id="downloadSvg" type="button" disabled>Download SVG</button>
+              <button class="button button-quiet" id="copyPayload" type="button" disabled>Copy payload</button>
+            </div>
+
+            <div class="customization">
+              <div class="customization-heading">
+                <h3>Make it yours</h3>
+                <label class="size-control" for="qrSize">
+                  <span>QR code size</span>
+                  <select id="qrSize" name="size">
+                    <option value="192">192 px</option>
+                    <option value="256" selected>256 px</option>
+                    <option value="384">384 px</option>
+                    <option value="512">512 px</option>
+                  </select>
+                </label>
+              </div>
+              <div class="color-controls">
+                <label class="color-control" for="foregroundColor"><span>Foreground color</span><input id="foregroundColor" type="color" value="#000000"></label>
+                <label class="color-control" for="backgroundColor"><span>Background color</span><input id="backgroundColor" type="color" value="#ffffff"></label>
+              </div>
+              <div class="preset-row" role="group" aria-label="Color presets">
+                <span>Presets</span>
+                <button type="button" class="preset-button" data-foreground="#000000" data-background="#ffffff">Black &amp; white</button>
+                <button type="button" class="preset-button" data-foreground="#17483e" data-background="#eef7f2">Pine</button>
+                <button type="button" class="preset-button" data-foreground="#253f67" data-background="#f1f5fc">Slate</button>
+              </div>
+            </div>
+
+            <p class="sharing-note"><strong>Before you share:</strong> anyone who scans a QR code may be able to read what it contains. Check the encoded details first. QRify does not check whether a URL is safe.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="container features-section" aria-labelledby="features-title">
+        <div class="section-intro">
+          <p class="section-kicker">Useful by default</p>
+          <h2 id="features-title">Simple to use.<br><span>Private by design.</span></h2>
+        </div>
+        <div class="feature-list">
+          <article class="feature-item">
+            <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 3 20 6v5.7c0 4.8-3.2 8.7-8 10.3-4.8-1.6-8-5.5-8-10.3V6l8-3Zm0 2.7L6.5 7.8v3.9c0 3.4 2.2 6.3 5.5 7.7 3.3-1.4 5.5-4.3 5.5-7.7V7.8L12 5.7Z" fill="currentColor"></path></svg></span>
+            <h3>Nothing leaves this tab</h3>
+            <p>Generation happens in your browser. Your links, network details, and contacts are not uploaded or saved.</p>
+          </article>
+          <article class="feature-item">
+            <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 4h6v6H5V4Zm2 2v2h2V6H7Zm7-2h6v6h-6V4Zm2 2v2h2V6h-2ZM5 14h6v6H5v-6Zm2 2v2h2v-2H7Zm7-2h3v3h-3v-3Zm4 4h2v2h-2v-2Zm-4 0h2v2h-2v-2Zm4-4h2v2h-2v-2Z" fill="currentColor"></path></svg></span>
+            <h3>Ready when you are</h3>
+            <p>Create common QR formats, adjust the look, and save a PNG or SVG without an account.</p>
+          </article>
+          <article class="feature-item">
+            <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M4 5h16v14H4V5Zm2 2v10h12V7H6Zm2 2h8v2H8V9Zm0 4h5v2H8v-2Z" fill="currentColor"></path></svg></span>
+            <h3>Made for real screens</h3>
+            <p>Use a live preview, accessible controls, and clear contrast guidance on desktop or mobile.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="container faq-section" aria-labelledby="faq-title">
+        <div class="faq-intro">
+          <p class="section-kicker">A few quick answers</p>
+          <h2 id="faq-title">Good to know</h2>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>Does QRify send my content anywhere?</summary>
+            <p>No. The generator and QR library run in this browser. QRify does not add analytics or store your content.</p>
+          </details>
+          <details>
+            <summary>Can QRify tell me whether a link is safe?</summary>
+            <p>No. QRify encodes the information you enter; it does not scan links or verify where they lead. Check a link before sharing it.</p>
+          </details>
+          <details>
+            <summary>What can someone see when they scan my code?</summary>
+            <p>They can read the information encoded in it. Avoid putting anything in a QR code that you do not want a recipient to see.</p>
+          </details>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <a class="brand footer-brand" href="./" aria-label="QRify home">
+          <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="9" fill="currentColor"></rect><path d="M6 6h9v9H6zm2.5 2.5v4h4v-4zM17 6h9v9h-9zm2.5 2.5v4h4v-4zM6 17h9v9H6zm2.5 2.5v4h4v-4zM18 18h3v3h-3zm5 0h3v6h-3zm-5 5h6v3h-6z" fill="#fff" fill-rule="evenodd"></path></svg>
+          <span>QRify</span>
+        </a>
+        <p>Free QR codes, made privately in your browser.</p>
+        <a class="footer-link" href="https://github.com/melvinvarghese/QRify" target="_blank" rel="noopener noreferrer">Open source on GitHub</a>
+      </div>
+    </footer>
+
+    <script src="./assets/vendor/qrcode.js"></script>
+    <script src="./assets/vendor/qrcode_UTF8.js"></script>
+    <script type="module" src="./assets/js/app.mjs"></script>
+  </body>
+</html>
