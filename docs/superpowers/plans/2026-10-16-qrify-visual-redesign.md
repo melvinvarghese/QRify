@@ -74,7 +74,11 @@
 
 - [x] **Step 1: Re-run** `node --test tests/qrify-core.test.mjs`, `node --check assets/js/app.mjs`, `node --check assets/js/qrify-core.mjs`, `python3 tests/browser_smoke.py`, and `git diff --check`; all passed.
 - [x] **Step 2: Request a fresh whole-branch code review** against the design spec and this plan; no Critical/Important findings; log the one Minor contrast-test coverage gap as deferred.
-- [ ] **Step 3: Push the full fast-forward commit series to `origin/main`**, then load the public HTTPS GitHub Pages URL and verify title, metadata, relative assets, responsive generator, and absence of console/runtime errors without changing Pages settings.
-- [ ] **Step 4: Capture one final desktop screenshot of the deployed page** and record any checks that cannot be performed.
+- [x] **Step 3: Push the full fast-forward commit series to `origin/main`**, then load the public HTTPS GitHub Pages URL and verify title, metadata, relative assets, responsive generator, and absence of console/runtime errors without changing Pages settings. Live desktop check: title/description/canonical/OG title match; CSS and app module return HTTP 200; the browser preview is ready and console errors are zero. Responsive breakpoints pass the local browser smoke at 320/375/768 px; the public page was visually checked at desktop width only.
+- [x] **Step 4: Capture one final desktop screenshot of the deployed page** and deliver it with the result.
 
 **Final review status:** Fresh whole-branch review found no Critical or Important issues. One Minor contrast-test coverage gap is deferred and recorded in the decision ledger; see Task 3, Step 2.
+
+
+**Published head:** `4db93f2` was fast-forwarded to `origin/main`; the existing Pages `main`/root + HTTPS configuration was left unchanged.
+**Live verification:** HTTPS returned HTTP 200 with the expected title, 154-character description, canonical URL, and Open Graph title. The referenced CSS and app module both returned HTTP 200. The in-app browser showed the example QR preview ready and reported zero console errors; matching Open Graph description, URL, and type passed the local browser suite.
