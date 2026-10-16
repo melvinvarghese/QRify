@@ -57,7 +57,20 @@ def main():
 
             response = page.goto(base_url, wait_until='networkidle')
             assert response is not None and response.status == 200, f'{base_url} did not return HTTP 200'
-            assert page.title().startswith('QRify')
+            expected_title = 'QRify — Free QR Code Generator for URLs, Wi-Fi, and More'
+            expected_description = 'Free QR code generator for websites, text, Wi-Fi, email, phone numbers, and contacts. Customize colors and size, then download PNG or SVG in your browser.'
+            expected_url = 'https://melvinvarghese.github.io/QRify/'
+            assert page.title() == expected_title
+            description_tags = page.locator('meta[name="description"]')
+            assert description_tags.count() == 1, 'the page should have exactly one meta description'
+            description = description_tags.get_attribute('content')
+            assert description == expected_description, f'unexpected search description: {description}'
+            assert 150 <= len(description) <= 160, f'meta description should be 150–160 characters, got {len(description)}'
+            assert page.locator('link[rel="canonical"]').get_attribute('href') == expected_url
+            assert page.locator('meta[property="og:title"]').get_attribute('content') == expected_title
+            assert page.locator('meta[property="og:description"]').get_attribute('content') == expected_description
+            assert page.locator('meta[property="og:url"]').get_attribute('content') == expected_url
+            assert page.locator('meta[property="og:type"]').get_attribute('content') == 'website'
 
             black_white = page.get_by_role('button', name='Black & white')
             pine = page.get_by_role('button', name='Pine')

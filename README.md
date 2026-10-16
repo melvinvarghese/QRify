@@ -1,6 +1,6 @@
 # QRify
 
-**Free QR codes. Private by design.** QRify creates QR codes for links, notes, Wi-Fi networks, email addresses, phone numbers, and contact cards. Generation and downloads happen in your browser; no account or paid service is required.
+**Free QR code generator. Private by design.** QRify creates QR codes for websites, text, Wi-Fi networks, email addresses, phone numbers, and contact cards. Customize colors and size, then download PNG or SVG. Generation and downloads run in your browser; no account or paid service is required.
 
 [Open the live QRify generator](https://melvinvarghese.github.io/QRify/)
 
