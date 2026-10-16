@@ -6,7 +6,7 @@
 
 QRify is a free, privacy-first QR generator for people who need to create and download readable QR codes without sending content to a service. Success means a responsive static site hosted at `https://melvinvarghese.github.io/QRify/` that can encode URLs, text, email, phone, Wi-Fi, and vCard contacts; customize and download PNG/SVG; and operate without analytics, backend calls, accounts, or paid services.
 
-The existing repository is a clean public `main` branch containing only a placeholder README. GitHub Pages is not configured. Preserve the existing repository and history; deploy the existing repository rather than creating another.
+The existing repository is a clean public `main` branch containing only a placeholder README. GitHub Pages is already enabled from `main`/root with HTTPS enforcement. Preserve the existing repository, Pages URL, and publishing source; deploy by pushing to `main` rather than creating another repository or changing the source.
 
 ## Constraints and non-goals
 
@@ -43,9 +43,9 @@ User input is untrusted. Render it only as text; construct QR payloads and SVG u
 ## GitHub Pages, documentation, and licensing
 
 - Keep a valid `index.html` at repository root and all resources relative.
-- Add a `.gitignore`, project `LICENSE` (MIT is appropriate; no existing license conflicts), and a Pages Actions workflow that deploys the static repository root on updates to `main` without a build step. Do not replace unrelated workflows; none exist currently.
-- Configure the repository’s Pages source for GitHub Actions when repository permissions allow, and verify the resulting deployment before reporting the live URL.
-- README must document features, privacy/data handling, setup, Pages deployment, project layout, QR library/version/license attribution, limitations, contribution steps, project license, and the live demo link. Add a screenshot only if a real screenshot can be captured.
+- Add a `.gitignore`, project `LICENSE` (MIT is appropriate; no existing license conflicts), and `.nojekyll`. Preserve the existing branch-based `main`/root Pages source; updates to `main` publish without a build step or deployment workflow.
+- Do not change the repository’s Pages source. Verify that the existing HTTPS-enforced URL serves the new site after pushing to `main`.
+- README must document features, privacy/data handling, setup, branch-based Pages deployment, project layout, QR library/version/license attribution, limitations, contribution steps, project license, and the live demo link. Add a screenshot only if a real screenshot can be captured.
 
 ## Verification
 
@@ -59,5 +59,4 @@ Use the built-in Node test runner for payload construction, escaping, validation
 - `assets/js/app.mjs`: DOM interactions, preview, clipboard, downloads, status messages, and reset.
 - `assets/vendor/qrcode.js`, `assets/vendor/qrcode_UTF8.js`, and `assets/vendor/LICENSE-qrcode-generator`: vendored QR implementation and attribution.
 - `tests/qrify-core.test.mjs`: real unit tests using Node’s built-in test runner.
-- `.github/workflows/pages.yml`: static GitHub Pages deployment.
 - `.nojekyll`, `.gitignore`, `LICENSE`, and `README.md`: static hosting support, hygiene, and user documentation.

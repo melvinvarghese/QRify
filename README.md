@@ -57,15 +57,14 @@ node --check assets/js/qrify-core.mjs
 
 ## Deploy with GitHub Pages
 
-The workflow in `.github/workflows/pages.yml` packages the repository root and deploys it with GitHub Pages Actions; there is no build step. It runs on pushes to `main` and can also be started manually from the repository’s **Actions** tab. The workflow uses the `github-pages` environment and only the permissions needed to read the repository and publish Pages.
+This repository uses its existing GitHub Pages source: the `main` branch and repository root. Pushing to `main` automatically publishes the static files; no build step or Actions deployment workflow is required. The existing site URL and HTTPS enforcement are preserved.
 
-When setting up a fork, choose **Settings → Pages → Build and deployment → Source → GitHub Actions**. The published URL for this repository is <https://melvinvarghese.github.io/QRify/>.
+For a fork, choose **Settings → Pages → Build and deployment → Deploy from a branch**, then select `main` and `/(root)`. Keep HTTPS enforcement enabled. The published URL for this repository is <https://melvinvarghese.github.io/QRify/>.
 
 ## Project layout
 
 ```text
 .
-├── .github/workflows/pages.yml       # GitHub Pages deployment
 ├── .gitignore                        # local files and test artifacts
 ├── .nojekyll                         # marker for branch-based Pages publishing
 ├── assets/
