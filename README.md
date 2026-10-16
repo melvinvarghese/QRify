@@ -31,59 +31,6 @@ A QR code is not encrypted. Anyone who scans it may be able to read its contents
 
 URL mode accepts HTTP or HTTPS and adds `https://` if you omit a scheme. Email and phone modes also accept `mailto:` and `tel:` links. Wi-Fi supports WPA/WPA2, WEP, and open networks. A contact card uses the vCard 3.0 format.
 
-## Run locally
-
-Python 3 is sufficient to serve the static files; no package installation or build is needed.
-
-```bash
-git clone https://github.com/melvinvarghese/QRify.git
-cd QRify
-python3 -m http.server 8000
-```
-
-Open <http://localhost:8000/>. To check that repository-relative assets also work under GitHub Pages’ `/QRify/` path, run the optional browser smoke test described below.
-
-### Tests
-
-The core tests use Node’s built-in test runner:
-
-```bash
-node --test tests/qrify-core.test.mjs
-node --check assets/js/app.mjs
-node --check assets/js/qrify-core.mjs
-```
-
-`tests/browser_smoke.py` is an optional Playwright/Chromium integration test covering all six input modes, UTF-8, validation, color/size, PNG/SVG, clipboard, local-only requests, and a mobile viewport. It requires Python Playwright and a local Chromium or Google Chrome installation; it is not a runtime dependency of the site.
-
-## Deploy with GitHub Pages
-
-This repository uses its existing GitHub Pages source: the `main` branch and repository root. Pushing to `main` automatically publishes the static files; no build step or Actions deployment workflow is required. The existing site URL and HTTPS enforcement are preserved.
-
-For a fork, choose **Settings → Pages → Build and deployment → Deploy from a branch**, then select `main` and `/(root)`. Keep HTTPS enforcement enabled. The published URL for this repository is <https://melvinvarghese.github.io/QRify/>.
-
-## Project layout
-
-```text
-.
-├── .gitignore                        # local files and test artifacts
-├── .nojekyll                         # marker for branch-based Pages publishing
-├── assets/
-│   ├── css/styles.css                # responsive styles and color themes
-│   ├── js/app.mjs                    # form, preview, clipboard, and downloads
-│   ├── js/qrify-core.mjs             # payload validation and SVG renderer
-│   ├── qrify-mark.svg                # local favicon
-│   └── vendor/                       # local QR library and its license
-├── docs/
-│   ├── images/qrify-preview.png      # captured interface preview
-│   └── superpowers/                  # design specification and implementation plan
-├── tests/                            # core and optional browser tests
-├── index.html
-├── LICENSE
-└── README.md
-```
-
-QR generation uses the standalone [`qrcode-generator`](https://github.com/kazuhikoarase/qrcode-generator) **2.0.4** distribution with its UTF-8 helper. The upstream MIT license and attribution are included at `assets/vendor/LICENSE-qrcode-generator`. QRify’s own source is released under the MIT License in `LICENSE`.
-
 ## Limitations
 
 QRify creates codes; it does not scan them, encrypt their contents, verify a destination, or guarantee compatibility with every scanner. If the entered data exceeds the QR standard’s capacity, shorten it and try again. Always inspect a code before distributing it.
